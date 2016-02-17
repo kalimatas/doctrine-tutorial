@@ -7,5 +7,5 @@ $products = $productRepository->findAll();
 
 foreach ($products as $product) {
     /** @var $product Product */
-    printf("-%s\n", $product->getName());
+    printf("%d-%s\n", $product->getId(), $product->getName());
 }
