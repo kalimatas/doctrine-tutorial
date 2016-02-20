@@ -1,9 +1,16 @@
 <?php
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\Table;
 
 /**
- * @Entity(repositoryClass="BugRepository") @Table(name="bugs")
+ * @Entity(repositoryClass="BugRepository")
+ * @Table(name="bugs")
  */
 class Bug
 {
@@ -33,16 +40,19 @@ class Bug
 
     /**
      * @ManyToMany(targetEntity="Product")
+     * @var Product[]
      */
     protected $products;
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="assignedBugs")
+     * @var User
      */
     protected $engineer;
 
     /**
      * @ManyToOne(targetEntity="User", inversedBy="reportedBugs")
+     * @var User
      */
     protected $reporter;
 
@@ -125,11 +135,17 @@ class Bug
         $this->reporter = $reporter;
     }
 
+    /**
+     * @return User
+     */
     public function getEngineer()
     {
         return $this->engineer;
     }
 
+    /**
+     * @return User
+     */
     public function getReporter()
     {
         return $this->reporter;
@@ -140,8 +156,16 @@ class Bug
         $this->products[] = $product;
     }
 
+    /**
+     * @return Product[]|ArrayCollection
+     */
     public function getProducts()
     {
         return $this->products;
+    }
+
+    public function close()
+    {
+        $this->status = 'CLOSE';
     }
 }

@@ -16,7 +16,7 @@ if (!$reporter || !$engineer) {
 }
 
 $bug = new Bug();
-$bug->setDescription("Something does not work!");
+$bug->setDescription("Something does not work again!");
 $bug->setCreated(new DateTime("now"));
 $bug->setStatus("OPEN");
 
