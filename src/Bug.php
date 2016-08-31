@@ -168,4 +168,28 @@ class Bug
     {
         $this->status = 'CLOSE';
     }
+
+    /**
+     * Add product
+     *
+     * @param \Product $product
+     *
+     * @return Bug
+     */
+    public function addProduct(\Product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \Product $product
+     */
+    public function removeProduct(\Product $product)
+    {
+        $this->products->removeElement($product);
+    }
 }

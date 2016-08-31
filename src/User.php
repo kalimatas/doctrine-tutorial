@@ -65,4 +65,58 @@ class User
     {
         $this->assignedBugs[] = $bug;
     }
+
+    /**
+     * Remove reportedBug
+     *
+     * @param \Bug $reportedBug
+     */
+    public function removeReportedBug(\Bug $reportedBug)
+    {
+        $this->reportedBugs->removeElement($reportedBug);
+    }
+
+    /**
+     * Get reportedBugs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReportedBugs()
+    {
+        return $this->reportedBugs;
+    }
+
+    /**
+     * Add assignedBug
+     *
+     * @param \Bug $assignedBug
+     *
+     * @return User
+     */
+    public function addAssignedBug(\Bug $assignedBug)
+    {
+        $this->assignedBugs[] = $assignedBug;
+
+        return $this;
+    }
+
+    /**
+     * Remove assignedBug
+     *
+     * @param \Bug $assignedBug
+     */
+    public function removeAssignedBug(\Bug $assignedBug)
+    {
+        $this->assignedBugs->removeElement($assignedBug);
+    }
+
+    /**
+     * Get assignedBugs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssignedBugs()
+    {
+        return $this->assignedBugs;
+    }
 }
