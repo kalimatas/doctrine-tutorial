@@ -1,8 +1,35 @@
 <?php
 
+use Doctrine\ORM\AbstractQuery;
+
 require_once "bootstrap.php";
 
 $driverRepository = $entityManager->getRepository(Driver::class);
+
+$qb = $entityManager->createQueryBuilder();
+
+/** @var $driver Driver */
+$driver = $qb->select('d, dr, c')
+    ->from('Driver', 'd')
+    ->leftJoin('d.driverRides', 'dr')
+    ->leftJoin('dr.car', 'c')
+    ->where('d.id = 1')
+    ->getQuery()
+    ->getSingleResult();
+//    ->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
+
+//var_dump($driver);
+//return;
+
+printf("%s:\n", $driver->getName());
+foreach ($driver->getDriverRides() as $ride) {
+    printf("%s %s\n", $ride->getCar()->getBrand(), $ride->getCar()->getModel());
+}
+
+echo PHP_EOL;
+
+return;
+
 $drivers = $driverRepository->findAll();
 
 echo 'Drivers' . PHP_EOL;
