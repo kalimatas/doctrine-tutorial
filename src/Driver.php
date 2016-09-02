@@ -5,7 +5,9 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\Table;
 
 /**
@@ -27,21 +29,26 @@ class Driver
     protected $name;
 
     /**
-     * @OneToMany(targetEntity="DriverRide", mappedBy="driver")
+     * @ManyToMany(targetEntity="Car")
+     * @JoinTable(
+     *     name="driver_rides",
+     *     joinColumns={@JoinColumn(name="driver_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@JoinColumn(name="car", referencedColumnName="brand")}
+     * )
      */
-    protected $driverRides;
+    protected $cars;
 
     /**
      * Driver constructor.
      */
     public function __construct()
     {
-        $this->driverRides = new ArrayCollection();
+        $this->cars = new ArrayCollection();
     }
 
     function getId() { return $this->id; }
     function getName() { return $this->name; }
-    function getDriverRides() { return $this->driverRides; }
+    function getCars() { return $this->cars; }
 
     /**
      * @param mixed $name
@@ -52,34 +59,34 @@ class Driver
     }
 
     /**
-     * @param mixed $driverRides
+     * @param mixed $cars
      */
-    public function setDriverRides($driverRides)
+    public function setCars($cars)
     {
-        $this->driverRides = $driverRides;
+        $this->cars = $cars;
     }
 
     /**
      * Add driverRide
      *
-     * @param \DriverRide $driverRide
+     * @param \Car $car
      *
      * @return Driver
      */
-    public function addDriverRide(\DriverRide $driverRide)
+    public function addCar(\Car $car)
     {
-        $this->driverRides[] = $driverRide;
+        $this->cars[] = $car;
 
         return $this;
     }
 
     /**
-     * Remove driverRide
+     * Remove car
      *
-     * @param \DriverRide $driverRide
+     * @param \Car $car
      */
-    public function removeDriverRide(\DriverRide $driverRide)
+    public function removeCar(\Car $car)
     {
-        $this->driverRides->removeElement($driverRide);
+        $this->cars->removeElement($car);
     }
 }

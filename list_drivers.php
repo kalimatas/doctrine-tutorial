@@ -6,25 +6,55 @@ require_once "bootstrap.php";
 
 $driverRepository = $entityManager->getRepository(Driver::class);
 
+///** @var Driver $dri */
+//$dri = $driverRepository->find(1);
+//foreach ($dri->getCars() as $car) {
+//    /** @var Car $car */
+//    echo $car->getBrand() . ' ' . $car->getModel() . PHP_EOL;
+//}
+//return;
+
 $qb = $entityManager->createQueryBuilder();
 
 /** @var $driver Driver */
-$driver = $qb->select('d, dr, c')
+$driver = $qb->select('d, dr')
     ->from('Driver', 'd')
-    ->leftJoin('d.driverRides', 'dr')
-    ->leftJoin('dr.car', 'c')
+    ->leftJoin('d.cars', 'dr')
     ->where('d.id = 1')
     ->getQuery()
     ->getSingleResult();
-//    ->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
-
-//var_dump($driver);
-//return;
 
 printf("%s:\n", $driver->getName());
-foreach ($driver->getDriverRides() as $ride) {
-    printf("%s %s\n", $ride->getCar()->getBrand(), $ride->getCar()->getModel());
+foreach ($driver->getCars() as $car) {
+    printf("%s %s\n", $car->getBrand(), $car->getModel());
 }
+
+echo PHP_EOL;
+
+$qb = $entityManager->createQueryBuilder();
+$drivers = $qb->select('d, dr')
+    ->from('Driver', 'd')
+    ->leftJoin('d.cars', 'dr')
+    ->getQuery()
+    ->getResult();
+
+foreach ($drivers as $driver) {
+    printf("%s:\n", $driver->getName());
+    foreach ($driver->getCars() as $car) {
+        printf("%s %s\n", $car->getBrand(), $car->getModel());
+    }
+}
+
+//$qb = $entityManager->createQueryBuilder();
+//$r = $qb->select('dr, c')
+//    ->from('DriverRide', 'dr')
+//    ->leftJoin('dr.car', 'c')
+//    ->where('dr.driver = 1')
+//    ->getQuery()
+//    ->getResult();
+
+//var_dump($r);
+
 
 echo PHP_EOL;
 
