@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\AbstractQuery;
 
-require_once "bootstrap.php";
+$entityManager = require_once __DIR__ . '/bootstrap.php';
 
 $driverRepository = $entityManager->getRepository(Driver::class);
 

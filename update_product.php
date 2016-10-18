@@ -1,10 +1,11 @@
 <?php
 
-require_once "bootstrap.php";
+$entityManager = require_once __DIR__ . '/bootstrap.php';
 
 $id = $argv[1];
 $newName = $argv[2];
 
+/** @var Product $product */
 $product = $entityManager->find('Product', $id);
 
 if ($product === null) {

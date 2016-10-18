@@ -1,7 +1,7 @@
 <?php
 
 // products.php
-require_once "bootstrap.php";
+$entityManager = require_once __DIR__ . '/bootstrap.php';
 
 $dql = <<<QUERY
 SELECT p.id, p.name, count(b.id) as openBugs

@@ -3,16 +3,20 @@
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\PreUpdate;
 
 /**
- * @Entity @Table(name="users")
+ * @Entity(repositoryClass="UserRepository") @Table(name="users")
+ * @HasLifecycleCallbacks()
  */
 class User
 {
     /**
      * @Id @GeneratedValue @Column(type="integer")
+     *
      * @var int
      */
     protected $id;
@@ -118,5 +122,14 @@ class User
     public function getAssignedBugs()
     {
         return $this->assignedBugs;
+    }
+
+    /**
+     * @PreUpdate()
+     */
+    public function doOnPreUpdate()
+    {
+        $a = $this;
+        echo 'in doOnPreUpdate' . PHP_EOL;
     }
 }

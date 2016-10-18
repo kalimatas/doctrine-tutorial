@@ -1,7 +1,7 @@
 <?php
 
 // dashboard.php
-require_once "bootstrap.php";
+$entityManager = require_once __DIR__ . '/bootstrap.php';
 
 $theUserId = $argv[1];
 

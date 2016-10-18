@@ -1,10 +1,11 @@
 <?php
 
 // show_bug.php
-require_once "bootstrap.php";
+$entityManager = $entityManager = require_once __DIR__ . '/bootstrap.php';
 
 $theBugId = $argv[1];
 
+/** @var Bug $bug */
 $bug = $entityManager->find("Bug", (int)$theBugId);
 
 echo "Bug: ".$bug->getDescription()."\n";

@@ -1,6 +1,6 @@
 <?php
 
-require_once "bootstrap.php";
+$entityManager = require_once __DIR__ . '/bootstrap.php';
 
 $id = $argv[1];
 $product = $entityManager->find('Product', $id);
