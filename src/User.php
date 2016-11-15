@@ -1,6 +1,9 @@
 <?php
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
@@ -26,6 +29,13 @@ class User
      * @var string
      */
     protected $name;
+
+    /**
+     * @ManyToOne(targetEntity="City", inversedBy="users")
+     * @JoinColumn(name="city_id", referencedColumnName="id")
+     * @var City
+     */
+    protected $city;
 
     /**
      * @OneToMany(targetEntity="Bug", mappedBy="reporter")
@@ -131,5 +141,29 @@ class User
     {
         $a = $this;
         echo 'in doOnPreUpdate' . PHP_EOL;
+    }
+
+    /**
+     * Set city
+     *
+     * @param \City $city
+     *
+     * @return User
+     */
+    public function setCity(\City $city = null)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return \City
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }
