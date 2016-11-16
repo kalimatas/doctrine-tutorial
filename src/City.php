@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
 
 /**
- * @Entity()
+ * @Entity(repositoryClass="CityRepository")
  * @Table("cities")
- * @Cache(usage="READ_ONLY", region="city_region")
+ * @Cache(usage="NONSTRICT_READ_WRITE", region="city_region")
  */
 class City
 {
